@@ -7,18 +7,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
-public class PersonaServiceImpl implements IPersonaService{
+public class PersonaServiceImpl implements IPersonaService {
+
     @Autowired
     private IPersonaDao personaDao;
+
     @Override
-    @Transactional(readOnly = true)//cuando solo consulta la base de datos y no modifica
+    @Transactional(readOnly = true)
     public List<Persona> listarPersonas() {
         return (List<Persona>) personaDao.findAll();
     }
 
     @Override
-    @Transactional//consulta y modifica la base de datos
+    @Transactional
     public void guardar(Persona persona) {
         personaDao.save(persona);
     }

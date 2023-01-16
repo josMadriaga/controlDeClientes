@@ -18,25 +18,27 @@ import java.util.ArrayList;
 
 @Service("userDetailsService")
 @Slf4j
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService implements UserDetailsService{
 
     @Autowired
     private IUsuarioDao usuarioDao;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario=usuarioDao.findByUsername(username);
+        Usuario usuario = usuarioDao.findByUsername(username);
 
-        if(usuario==null)
+        if(usuario == null){
             throw new UsernameNotFoundException(username);
+        }
 
-        var roles=new ArrayList<GrantedAuthority>();
+        var roles = new ArrayList<GrantedAuthority>();
 
-        for(Rol rol:usuario.getRoles()){
+        for(Rol rol: usuario.getRoles()){
             roles.add(new SimpleGrantedAuthority(rol.getNombre()));
         }
 
-        return new User(usuario.getUsername(),usuario.getPassword(),roles);
+        return new User(usuario.getUsername(), usuario.getPassword(), roles);
     }
+
 }

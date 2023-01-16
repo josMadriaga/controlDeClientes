@@ -23,23 +23,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
+    public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception{
         build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    @Override //autorizacion (asegurar las url) visualizar y ejecutar acciones
+    @Override//autorizacion (asegurar las url) visualizar y ejecutar acciones
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/editar/**","/agregar/**","/eliminar")
-                    .hasRole("ADMIN")
+                .antMatchers("/editar/**", "/agregar/**", "/eliminar")
+                .hasRole("ADMIN")
                 .antMatchers("/")
-                    .hasAnyRole("USER","ADMIN")
+                .hasAnyRole("USER", "ADMIN")
                 .and()
-                   .formLogin()
-                    .loginPage("/login")
+                .formLogin()
+                .loginPage("/login")
                 .and()
-                    .exceptionHandling().accessDeniedPage("/errores/500")
-                ;
+                .exceptionHandling().accessDeniedPage("/errores/500");
     }
 }
 //.and() agrega condiciones
