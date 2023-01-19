@@ -45,21 +45,30 @@
             </div>
         </div>
     </nav>
+    <section id="main-header" class="py-2 bg-info text-whiter"><!--bg-info es un tono de azul-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fas fa-cog"></i>[[#{plantilla.titulo}]]
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
 </header>
 
-<footer th:fragment="footer">
-    <div>
+<footer th:fragment="footer" class="bg-warning text-white mt-5 p-5"><!--bg-warning es un tono de amarillo-->
+    <div class="container">
+        <div class="col">
+           <p class="lead text-center">
+               <a th:href="@{/(lang=es)}">ES</a> |
+               <a th:href="@{/(lang=en)}">EN</a> |
+               <span> [[#{plantilla.pie-pagina}]] &copy; <a href="https://www.linkedin.com/in/madriaga/" target="_blank">Madriaga Juan Jose</a></span>
+           </p>
+        </div>
         <br/>
-        <a th:href="@{/(lang=es)}">ES</a> |
-        <a th:href="@{/(lang=en)}">EN</a> |
-        <span> [[#{plantilla.pie-pagina}]] <a href="https://www.linkedin.com/in/madriaga/" target="_blank">Madriaga Juan Jose</a></span>
-        <form method="POST" th:action="@{/logout}">
-            <b>User:</b> <span sec:authentication="name">Usuario que hizo loguin</span> |
-            <b>Roles:</b> <span sec:authentication="principal.authorities">Roles</span> |
-            <a href="#" onclick="this.parentNode.submit();">Logout</a>
-        </form>
     </div>
 </footer>
-
 </body>
 </html>
